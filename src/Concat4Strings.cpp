@@ -29,6 +29,9 @@ Difficulty : Hard
 
 char * concat_4strings(char *s1, char *s2, char *s3, char *s4){
 	//Return the new string created.
+	if (s1 == NULL && s2 == NULL && s3 == NULL && s4 == NULL)
+		return NULL;
+
 	int x = s1[0];
 	int y = s2[0];
 	int z = s3[0];
@@ -46,5 +49,4 @@ char * concat_4strings(char *s1, char *s2, char *s3, char *s4){
 		strcat(rs, s4);
 		return rs;
 	}
-	return NULL;
 }
