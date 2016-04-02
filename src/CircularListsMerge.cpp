@@ -32,7 +32,72 @@ struct node{
 	int data;
 	struct node *next;
 };
+
+int lengthofCLL(struct node* temp)
+{
+	int count = 1;
+	struct node* temp1 = temp;
+	do
+	{
+		temp = temp->next;
+		count++;
+	} while (temp1 != temp);
+	return count-1;
+}
+
+struct node* findLastNodeOfCLL(struct node* head)
+{
+	int count = 1;
+			struct node* p1 = head;
+			struct node* p2 = head;
+			do
+			{
+				p1 = p1->next->next;
+				p2 = p2->next;
+				count++;
+			} while (p1->next != p2);
+			
+		return p2;
+}
+
+struct node* sortedMerge(struct node* a, struct node* b)
+{
+	struct node* result = NULL;
+	if (a == NULL)
+		return b;
+	else if (b == NULL)
+		return a;
+	else if (a->data >= b->data)
+	{
+		result = b;
+		result->next = sortedMerge(a, b->next);
+	}
+	else
+	{
+		result = a;
+		result->next = sortedMerge(a->next, b);
+	}
+	return result;
+}
+
 int merge_circularlists(struct node **head1, struct node **head2){
 	//Returns Length of merged Sorted circular SLL and also points *head1 to final SLL .
-	return -1;
+	if (*head1==NULL && *head2==NULL)
+		return -1;
+	if (*head1 == NULL)
+		return lengthofCLL(*head2);
+	if (*head2 == NULL)
+		return lengthofCLL(*head1);
+	int a = lengthofCLL(*head1);
+	int b = lengthofCLL(*head2);
+	struct node* p1 = findLastNodeOfCLL(*head1);
+	struct node* p2 = findLastNodeOfCLL(*head2);
+	p1->next = NULL;
+	p2->next = NULL;
+	*head1 = sortedMerge(*head1, *head2);
+	struct node* temp = *head1;
+	while (temp->next != NULL)
+		temp = temp->next;
+	temp->next = *head1;
+	return a+b;
 }

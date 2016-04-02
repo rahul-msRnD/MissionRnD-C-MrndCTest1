@@ -31,7 +31,104 @@ Difficulty : Medium
 #include <stdio.h>
 #include <math.h>
 
-int * find_sequences(int *arr, int len){
+
+
+int * find_sequences(int *a, int len){
 	//Return final array which has 6indexes [AP1_S,AP1_E,AP2_S,AP2_E,GP1_S,GP2_E]
-	return NULL;
+	if (a == NULL)
+		return NULL;
+	int j = 0;
+	int x = 0;
+	int *rs = (int*)malloc(6*sizeof(int));
+		if (a[1] - a[0] == a[2] - a[1])
+		{
+			int d = a[1] - a[0];
+			int i = 2;
+			while (1)
+			{
+				if (a[i + 1] - a[i] != d)
+				{
+					rs[0] = 0;
+					rs[1] = i;
+					break;
+				}
+				i++;
+			}
+
+			i = i + 1;
+			int g = i;
+			int r = a[i+1] / a[i];
+			if (a[i+2] / a[i+1] == r)
+			{
+				i = i + 2;
+				while (1)
+				{
+					if (a[i + 1] / a[i] != r)
+					{
+						rs[4] = g;
+						rs[5] = i;
+						break;
+					}
+					i++;
+				}
+				rs[2] = i + 1;
+				rs[3] = len-1;
+				return rs;
+ 			}
+			else
+			{
+				int d = a[i+1] - a[i];
+				i = i+2;
+				while (1)
+				{
+					if (a[i + 1] - a[i] != d)
+					{
+						rs[2] = g;
+						rs[3] = i;
+						break;
+					}
+					i++;
+				}
+				rs[4] = i ;
+				rs[5] = len-1;
+				return rs;
+			}
+		}
+		else
+		{
+			int r = a[1] / a[0];
+			int i = 0;
+			if (a[i + 2] / a[i + 1] == r)
+			{
+				i = i + 2;
+				while (1)
+				{
+					if (a[i + 1] / a[i] != r)
+					{
+						rs[4] = 0;
+						rs[5] = i;
+						break;
+					}
+					i++;
+				}
+				int g = i;
+				int d = a[i + 1] - a[i];
+				i = i + 2;
+				while (1)
+				{
+					if (a[i + 1] - a[i] != d)
+					{
+						rs[2] = g;
+						rs[3] = i;
+						break;
+					}
+					i++;
+				}
+				rs[5] = len - 1;
+				if (a[i + 1] - a[i] == a[i + 2] - a[i + 1])
+					rs[4] = i;
+				rs[4] = i + 1;
+				return rs;
+			}
+		}
 }

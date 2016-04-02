@@ -28,7 +28,59 @@ struct node{
 	struct node *next;
 };
 
+struct Date
+{
+	int da, mo, ye;
+};
+
+Date convertToDate(struct node* d)
+{
+	int z = d->data;
+	int day = z * 10 + d->next->data;
+	d = d->next->next;
+	int y = d->data;
+	int m = y * 10 + d->next->data;
+	d = d->next->next;
+	int x = d->data;
+	x = x * 10 + d->next->data;
+	x = x * 10 + d->next->next->data;
+	int yr = x * 10 + d->next->next->next->data;
+	struct Date d1;
+	d1.da = day;
+	d1.mo = m;
+	d1.ye = yr;
+	return d1;
+}
+
+int DaysInMonth[12] = { 31, 28, 31, 30, 31, 30,
+31, 31, 30, 31, 30, 31 };
+
+int countLeapYears(Date d)
+{
+	int years = d.ye;
+	if (d.mo <= 2)
+		years--;
+	return years / 4 - years / 100 + years / 400;
+}
+
+int getDifference(Date dt1, Date dt2)
+{
+	int d1 = dt1.ye * 365 + dt1.da;
+	int d2 = dt2.ye * 365 + dt2.da;
+	for (int i = 0; i<dt1.mo - 1; i++)
+		d1 += DaysInMonth[i];
+	d1 += countLeapYears(dt1);
+	for (int i = 0; i<dt2.mo - 1; i++)
+		d2 += DaysInMonth[i];
+	d2 += countLeapYears(dt2);
+	return (d2 - d1 - 1);
+}
 
 int between_days(struct node *date1head, struct node *date2head){
-	return -1;
+	if (date1head == NULL || date2head==NULL)
+		return -1;
+	Date d1 = convertToDate(date1head);
+	Date d2 = convertToDate(date2head);
+	return getDifference(d1, d2);
+
 }
