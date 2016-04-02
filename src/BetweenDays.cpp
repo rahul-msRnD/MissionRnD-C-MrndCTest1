@@ -26,6 +26,7 @@ Difficulty : Hard
 struct node{
 	int data;
 	struct node *next;
+
 };
 
 struct Date

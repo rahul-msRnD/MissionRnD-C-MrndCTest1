@@ -100,4 +100,6 @@ int merge_circularlists(struct node **head1, struct node **head2){
 		temp = temp->next;
 	temp->next = *head1;
 	return a+b;
+
+
 }
