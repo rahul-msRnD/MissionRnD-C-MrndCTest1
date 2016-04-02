@@ -29,5 +29,22 @@ Difficulty : Hard
 
 char * concat_4strings(char *s1, char *s2, char *s3, char *s4){
 	//Return the new string created.
+	int x = s1[0];
+	int y = s2[0];
+	int z = s3[0];
+	int l = s4[0];
+	int l1 = strlen(s1);
+	int l2 = strlen(s2);
+	int l3 = strlen(s3);
+	int l4 = strlen(s4);
+	char* rs = (char*)malloc(l1 + l2 + l3 + l4 + 1);
+	if (x > y && y > z && z > l)
+	{
+		strcat(rs, s1);
+		strcat(rs, s2);
+		strcat(rs, s3);
+		strcat(rs, s4);
+		return rs;
+	}
 	return NULL;
 }
